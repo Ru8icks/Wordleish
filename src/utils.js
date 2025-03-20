@@ -30,7 +30,6 @@ export const checkGuess = (guess, targetWord) => {
   };
 
   
-
   export const getRandomWord = (wordList) => {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     return wordList[randomIndex];
