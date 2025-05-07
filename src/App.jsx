@@ -38,9 +38,11 @@ function App() {
 
     if (key === 'Enter' && currentGuess.length === 5 && currentAttempt < 6) {
       const guessResult = checkGuess(currentGuess, targetWord);
-      const newGuesses = [...guesses];
-      newGuesses[currentAttempt] = guessResult;
-      setGuesses(newGuesses);
+      setGuesses((prevGuesses) => {
+        const newGuesses = [...prevGuesses];
+        newGuesses[currentAttempt] = guessResult;
+        return newGuesses;
+      });
 
       if (currentGuess === targetWord) {
         setGameOver(true);
@@ -53,7 +55,7 @@ function App() {
       setCurrentAttempt(currentAttempt + 1);
       setCurrentGuess('');
     }
-  }, [currentGuess, currentAttempt, guesses, targetWord, gameOver]);
+  }, [currentGuess, currentAttempt, targetWord, gameOver]);
 
   useEffect(() => {     
     window.addEventListener('keydown', handleKeyDown);
@@ -83,7 +85,6 @@ function App() {
         <span className="toggle" onClick={toggleTheme}>{theme === 'light' ? '☼' : '☽'}</span>
         <span className="toggle" onClick={toggleHowToPlay}>⁇</span>
       </div>
-
       <h1>Wordleish</h1>
       <Grid
         guesses={guesses}
